@@ -12,9 +12,6 @@ f.close()
 
 
 #counts how many times each space-separated word occurs in that file. 
-# check to see if the word exists in the dictionary
-# if so- add 1 to the counter for that word 
-# if not create a new item with that word as key (counter starts at 1)
 
 dictionary = {}
 
@@ -29,27 +26,29 @@ for i in range(123, 128):
     notalphabet.append(thechar)
 notalphabet = ''.join(notalphabet)
 
+# check to see if the word exists in the dictionary
+# if so- add 1 to the counter for that word 
+# if not create a new item with that word as key (counter starts at 1)
 
 for word in thefile.split():
     word = word.lower()
     word = word.strip(notalphabet)
-    if not dictionary.get(word):
-        dictionary[word] = 1
-    else:
-        dictionary[word] += 1
+    if len(word) != 0:
+        if not dictionary.get(word):
+            dictionary[word] = 1
+        else:
+            dictionary[word] += 1
 
-## This prints out the word counts with no sorting
-# for word, count in dictionary.iteritems():
-#     print word + " " + str(count)
 
 
 ## This will sort them according to the number of appearances
 
 
-# loop through sorted list of keys: get length of its value, sort value list,
-# for i in range(len(value)), print that key along with its value[i] each time
 
 sorteddictionary = {}
+
+# Check to see if count exists as a key in new dictionary; if not, add count + corresponding word (as a list)
+# If count exists, append value list
 
 for word, count in dictionary.iteritems():
     if not sorteddictionary.get(count):
@@ -57,12 +56,15 @@ for word, count in dictionary.iteritems():
     else:
         sorteddictionary.get(count).append(word)
 
+# get list of all keys, sort in descending order
+
 key_list = sorteddictionary.keys()
 key_list.sort(reverse = True)
+
+# print each key repeated as necessary with all corresponding values from lists
 
 for count in key_list:
     howmany = len(sorteddictionary[count])
     sorteddictionary[count].sort()
     for i in range(howmany):
         print str(count) + " " + sorteddictionary[count][i]
-
